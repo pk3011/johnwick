@@ -925,7 +925,7 @@ def try2link(url):
     url = url[:-1] if url[-1] == '/' else url
     
     params = (('d', int(time.time()) + (60 * 4)),)
-    r = client.get(url, params=params, headers= {'Referer': 'https://newforex.online/'})
+    r = client.get(url, params=params, headers= {'Referer': 'https://mobi2c.com/'})
     
     soup = BeautifulSoup(r.text, 'html.parser')
     inputs = soup.find_all("input")
