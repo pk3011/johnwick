@@ -244,7 +244,8 @@ def is_mdisk_link(url: str):
     return "mdisk.me" in url or "mdisk.pro" in url
 
 def is_try2link_link(url: str):
-    return "try2link.com" in url
+    url = re_match(r'https?://try2link.\S+', url)
+    return bool(url)
 
 def is_ez4_link(url: str):
     return "ez4short.com" in url
