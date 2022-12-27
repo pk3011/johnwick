@@ -932,9 +932,9 @@ def try2link(url):
     data = { input.get('name'): input.get('value') for input in inputs }
     time.sleep(7)
     
-    headers = {'Host': 'try2link.com', 'X-Requested-With': 'XMLHttpRequest', 'Origin': 'https://try2link.com', 'Referer': url}
+    headers = {'Host': 'try2link.net', 'X-Requested-With': 'XMLHttpRequest', 'Origin': 'https://try2link.net', 'Referer': url}
     
-    bypassed_url = client.post('https://try2link.com/links/go', headers=headers,data=data)
+    bypassed_url = client.post('https://try2link.net/links/go', headers=headers,data=data)
     return bypassed_url.json()["url"]
 
 def htpm(url):
