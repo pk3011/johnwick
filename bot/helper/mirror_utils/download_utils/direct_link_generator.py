@@ -25,7 +25,7 @@ from base64 import standard_b64encode, b64decode
 from playwright.sync_api import Playwright, sync_playwright, expect
 from bot import LOGGER, UPTOBOX_TOKEN, CRYPT, KOLOP_CRYPT
 from bot.helper.telegram_helper.bot_commands import BotCommands
-from bot.helper.ext_utils.bot_utils import is_gdtot_link, is_gp_link, is_mdisk_link, is_dl_link, is_ouo_link, is_htp_link, is_rock_link, is_kolop_link, is_gt_link, is_psm_link, is_loan_link, is_ola_link, is_try2link_link, is_htpm_link, is_ez4_link, is_filepress_link
+from bot.helper.ext_utils.bot_utils import is_gdtot_link, is_gp_link, is_mdisk_link, is_dl_link, is_ouo_link, is_htp_link, is_rock_link, is_kolop_link, is_gt_link, is_psm_link, is_loan_link, is_ola_link, is_try2link_link, is_htpm_link, is_ez4_link, is_filepress_link, is_shourturl_link
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
 
 fmed_list = ['fembed.net', 'fembed.com', 'femax20.com', 'fcdn.stream', 'feurl.com', 'layarkacaxxi.icu',
@@ -82,6 +82,8 @@ def direct_link_generator(link: str):
         return try2link(link)
     elif is_filepress_link(link):
         return filepress(link)
+    elif is_shourturl_link(link):
+        return shourturl(link)
     elif is_ez4_link(link):
         return ez4(link)
     
@@ -1006,3 +1008,36 @@ def filepress(link:str) -> str:
     with sync_playwright() as playwright:
         flink = prun(playwright, link)
         return flink
+
+def shourturl(url):
+    
+    client = cloudscraper.create_scraper(allow_brotli=False)
+    
+    
+    DOMAIN = "https://short.url2go.in/RJOVAq30CU7lINo9AwG4oT3eISn7"
+
+    url = url[:-1] if url[-1] == '/' else url
+
+    code = url.split("/")[-1]
+    
+    final_url = f"{DOMAIN}/{code}"
+    
+    ref = "https://blog.textpage.xyz/"
+    
+    h = {"referer": ref}
+  
+    resp = client.get(final_url,headers=h)
+    
+    soup = BeautifulSoup(resp.content, "html.parser")
+    
+    inputs = soup.find_all("input")
+   
+    data = { input.get('name'): input.get('value') for input in inputs }
+
+    h = { "x-requested-with": "XMLHttpRequest" }
+    
+    time.sleep(2)
+    r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
+    try:
+        return r.json()['url']
+    except: return "Something went wrong :("
