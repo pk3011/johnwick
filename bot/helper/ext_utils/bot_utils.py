@@ -234,6 +234,9 @@ def is_gdtot_link(url: str):
 def is_gp_link(url: str):
     return "gplinks.co" in url
 
+def is_shourturl_link(url: str):
+    return "urlsopen.com" in url
+
 def is_appdrive_link(url: str):
     return "appdrive.in" in url or "appdrive.info" in url or "driveapp.in" in url or "gdflix.pro" in url or "drivehub.in" in url or "drivesharer.in" in url or "drivebit.in" in url or "drivelinks.in" in url or "driveace.in" in url or "drivepro.in" in url
 
