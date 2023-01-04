@@ -1014,7 +1014,7 @@ def shourturl(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
     
     
-    DOMAIN = "https://short.url2go.in/RJOVAq30CU7lINo9AwG4oT3eISn7"
+    DOMAIN = "https://blogpost.viewboonposts.com"
 
     url = url[:-1] if url[-1] == '/' else url
 
