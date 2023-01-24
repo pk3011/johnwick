@@ -972,7 +972,7 @@ def ez4(url):
         return r.json()['url']
     except: return "Something went wrong :("
 
-def prun(playwright: Playwright, link:str) -> str:
+"""def prun(playwright: Playwright, link:str) -> str:
     """ filepress google drive link generator
     By https://t.me/maverick9099
     GitHub: https://github.com/majnurangeela"""
@@ -1007,7 +1007,23 @@ def prun(playwright: Playwright, link:str) -> str:
 def filepress(link:str) -> str:
     with sync_playwright() as playwright:
         flink = prun(playwright, link)
-        return flink
+        return flink"""
+def filepress(url):
+    cget = create_scraper().request
+    try:
+        url = cget('GET', url).url
+        raw = urlparse(url)
+        json_data = {
+            'id': raw.path.split('/')[-1],
+            'method': 'publicDownlaod',
+            }
+        api = f'{raw.scheme}://api.{raw.hostname}/api/file/downlaod/'
+        res = cget('POST', api, headers={'Referer': f'{raw.scheme}://{raw.hostname}'}, json=json_data).json()
+    except Exception as e:
+        raise DirectDownloadLinkException(f'ERROR: {e.__class__.__name__}')
+    if 'data' not in res:
+        raise DirectDownloadLinkException(f'ERROR: {res["statusText"]}')
+    return f'https://drive.google.com/uc?id={res["data"]}&export=download'
 
 def shourturl(url):
     
