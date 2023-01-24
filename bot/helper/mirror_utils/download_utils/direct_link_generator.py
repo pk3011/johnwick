@@ -972,42 +972,7 @@ def ez4(url):
         return r.json()['url']
     except: return "Something went wrong :("
 
-"""def prun(playwright: Playwright, link:str) -> str:
-    """ filepress google drive link generator
-    By https://t.me/maverick9099
-    GitHub: https://github.com/majnurangeela"""
     
-    browser = playwright.chromium.launch()
-    context = browser.new_context()
-    
-    page = context.new_page()
-    page.goto(link)
-    
-    firstbtn = page.locator("xpath=//div[text()='Direct Download']/parent::button")
-    expect(firstbtn).to_be_visible()
-    firstbtn.click()
-    time.sleep(10)
-    
-    secondBtn = page.get_by_role("button", name="Download Now")
-    expect(secondBtn).to_be_visible()
-    with page.expect_navigation():
-        secondBtn.click()
- 
-    Flink = page.url
-    
-    context.close()
-    browser.close()
-    
-    if 'drive.google.com' in Flink:
-        return Flink
-    else:
-        raise DirectDownloadLinkException("Unable To Get Google Drive Link!")
-    
-    
-def filepress(link:str) -> str:
-    with sync_playwright() as playwright:
-        flink = prun(playwright, link)
-        return flink"""
 def filepress(url):
     cget = create_scraper().request
     try:
