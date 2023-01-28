@@ -98,24 +98,17 @@ def scrapper(update, context):
                     sent = sendMessage("<i>Scrapping More...</i>", context.bot, update.message)
                     prsd = ""
     elif "teluguflix" in link:
-        sent = sendMessage('Running Scrape ...', context.bot, update.message)
-        gd_txt = ""
+        selif "teluguflix" in link:
         r = rget(link)
         soup = BeautifulSoup (r.text, "html.parser")
         links = soup.select('a[href*="gdtot"]')
+        if len(links) == 0:
+             links = soup.select('a[href*="filepress"]')
         gd_txt = f"Total Links Found : {len(links)}\n\n"
-        editMessage(gd_txt, sent)
-        for no, link in enumerate(links, start=1):
-            gdlk = link['href']
-            t = rget(gdlk)
-            soupt = BeautifulSoup(t.text, "html.parser")
-            title = soupt.select('meta[property^="og:description"]')
-            gd_txt += f"{no}. <code>{(title[0]['content']).replace('Download ' , '')}</code>\n{gdlk}\n\n"
-            editMessage(gd_txt, sent)
-            asleep(1.5)
-            if len(gd_txt) > 4000:
-                sent = sendMessage("<i>Running More Scrape ...</i>", context.bot, update.message)
-                gd_txt = ""
+        sendMessage(gd_txt, context.bot, update.message)
+        for a in links:
+             link = a["href"]
+             sendMessage(link,context.bot,update.message)
     elif "benzmovies" in link:
          client = requests.session()
          r = client.get(link).text
