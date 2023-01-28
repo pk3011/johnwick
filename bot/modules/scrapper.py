@@ -98,7 +98,6 @@ def scrapper(update, context):
                     sent = sendMessage("<i>Scrapping More...</i>", context.bot, update.message)
                     prsd = ""
     elif "teluguflix" in link:
-        selif "teluguflix" in link:
         r = rget(link)
         soup = BeautifulSoup (r.text, "html.parser")
         links = soup.select('a[href*="gdtot"]')
